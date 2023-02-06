@@ -1,11 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Service;
+namespace App\Http\Controllers\Ticket;
 
-use App\Actions\Service\ServiceUpdateAction;
+use App\Actions\Ticket\TicketSetStatusConcludedAction;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Service\ServiceRequest;
-use App\Http\Resources\Service\ServiceResource;
 use Exception;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Log;
@@ -14,17 +12,17 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response as HttpFoundationResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class ServiceUpdateController extends Controller
+class TicketSetConcludedController extends Controller
 {
     public function __construct(
-        private readonly ServiceUpdateAction $serviceUpdateAction
+        private readonly TicketSetStatusConcludedAction $ticketSetStatusConcludedAction
     ) {
     }
 
-    public function __invoke(ServiceRequest $request, int $serviceId): JsonResource|JsonResponse
+    public function __invoke(int $ticketId): JsonResource|JsonResponse
     {
         try {
-            ServiceResource::make($this->serviceUpdateAction->execute($serviceId, $request->input('description')));
+            $this->ticketSetStatusConcludedAction->execute($ticketId);
             return Response::json(status: HttpFoundationResponse::HTTP_NO_CONTENT);
         } catch (NotFoundHttpException $ex) {
             return Response::json(['message' => $ex->getMessage()], $ex->getStatusCode());

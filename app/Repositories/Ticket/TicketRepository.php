@@ -2,6 +2,7 @@
 
 namespace App\Repositories\Ticket;
 
+use App\Enum\Ticket\TicketStatusEnum;
 use App\Models\Ticket;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
@@ -82,5 +83,15 @@ class TicketRepository implements TicketRepositoryInterface
         return $this->model->find($id)
             ->services
             ->pluck('id');
+    }
+
+    public function setStatusConcluded(int $id): void
+    {
+        $this->model->find($id)->update(['ticket_status' => TicketStatusEnum::CONCLUDED->value]);
+    }
+
+    public function setStatusPending(int $id): void
+    {
+        $this->model->find($id)->update(['ticket_status' => TicketStatusEnum::PENDING->value]);
     }
 }

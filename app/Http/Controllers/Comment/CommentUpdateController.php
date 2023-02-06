@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Service;
+namespace App\Http\Controllers\Comment;
 
-use App\Actions\Service\ServiceUpdateAction;
+use App\Actions\Comment\CommentUpdateAction;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Service\ServiceRequest;
-use App\Http\Resources\Service\ServiceResource;
+use App\Http\Requests\Comment\CommentRequest;
+use App\Http\Resources\Comment\CommentResource;
 use Exception;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Log;
@@ -14,17 +14,23 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response as HttpFoundationResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class ServiceUpdateController extends Controller
+class CommentUpdateController extends Controller
 {
     public function __construct(
-        private readonly ServiceUpdateAction $serviceUpdateAction
+        private readonly CommentUpdateAction $commentUpdateAction
     ) {
     }
 
-    public function __invoke(ServiceRequest $request, int $serviceId): JsonResource|JsonResponse
+    public function __invoke(CommentRequest $request, int $commentId): JsonResource|JsonResponse
     {
         try {
-            ServiceResource::make($this->serviceUpdateAction->execute($serviceId, $request->input('description')));
+            CommentResource::make(
+                $this->commentUpdateAction->execute(
+                    $commentId,
+                    $request->input('description'),
+                    $request->input('ticket_id')
+                )
+            );
             return Response::json(status: HttpFoundationResponse::HTTP_NO_CONTENT);
         } catch (NotFoundHttpException $ex) {
             return Response::json(['message' => $ex->getMessage()], $ex->getStatusCode());

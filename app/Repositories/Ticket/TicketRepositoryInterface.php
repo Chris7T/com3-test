@@ -19,4 +19,6 @@ interface TicketRepositoryInterface
     public function unlinkService(int $id, array $serviceIds): void;
     public function getlinkedDepartment(int $id): Collection;
     public function getlinkedService(int $id): Collection;
+    public function setStatusConcluded(int $id): void;
+    public function setStatusPending(int $id): void;
 }

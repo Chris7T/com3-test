@@ -46,7 +46,7 @@ class TicketGetTest extends TestCase
 
     public function test_expected_http_ok_when_sucess()
     {
-        $response = $this->actingAs($this->user)->getJson(route(self::ROUTE, $this->ticket->getKey()))->dd();
+        $response = $this->actingAs($this->user)->getJson(route(self::ROUTE, $this->ticket->getKey()));
 
         $response->assertStatus(Response::HTTP_OK)->assertJson([
             'data' => [
