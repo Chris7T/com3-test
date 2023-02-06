@@ -17,6 +17,7 @@ class Ticket extends Model
 
     protected $fillable = [
         'description',
+        'ticket_status',
     ];
 
     public function services(): BelongsToMany
