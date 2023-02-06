@@ -4,7 +4,7 @@ namespace Tests\Unit\Actions\Department;
 
 use App\Actions\Department\DepartmentGetAction;
 use App\Actions\Department\DepartmentUpdateAction;
-use App\Actions\User\UserCheckAdminPermissionAction;
+use App\Actions\User\UserCheckIsAdminPermissionAction;
 use App\Models\Department;
 use App\Repositories\Department\DepartmentRepositoryInterface;
 use Illuminate\Support\Facades\Cache;
@@ -18,7 +18,7 @@ class DepartmentUpdateActionTest extends TestCase
         parent::setUp();
         $this->departmentRepositoryStub = $this->createMock(DepartmentRepositoryInterface::class);
         $this->departmentGetActionStub = $this->createMock(DepartmentGetAction::class);
-        $this->userCheckAdminPermissionActionStub = $this->createMock(UserCheckAdminPermissionAction::class);
+        $this->userCheckAdminPermissionActionStub = $this->createMock(UserCheckIsAdminPermissionAction::class);
     }
 
     public function test_expected_not_found_http_exception_when_data_does_not_exists()

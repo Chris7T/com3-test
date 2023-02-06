@@ -4,7 +4,7 @@ namespace Tests\Unit\Actions\Service;
 
 use App\Actions\Service\ServiceDeleteAction;
 use App\Actions\Service\ServiceGetAction;
-use App\Actions\User\UserCheckAdminPermissionAction;
+use App\Actions\User\UserCheckIsAdminPermissionAction;
 use App\Repositories\Service\ServiceRepositoryInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Tests\TestCase;
@@ -16,7 +16,7 @@ class ServiceDeleteActionTest extends TestCase
         parent::setUp();
         $this->serviceRepositoryStub = $this->createMock(ServiceRepositoryInterface::class);
         $this->serviceGetActionStub = $this->createMock(ServiceGetAction::class);
-        $this->userCheckAdminPermissionActionStub = $this->createMock(UserCheckAdminPermissionAction::class);
+        $this->userCheckAdminPermissionActionStub = $this->createMock(UserCheckIsAdminPermissionAction::class);
     }
 
     public function test_expected_not_found_exception_when_data_does_not_exists()

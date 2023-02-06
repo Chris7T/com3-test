@@ -19,17 +19,22 @@ class TicketRepository implements TicketRepositoryInterface
         return $this->model->find($id);
     }
 
-    public function createTicket(string $description): Ticket
+    public function createTicket(string $description, int $userId): Ticket
     {
         return $this->model->create(
             [
                 'description' => $description,
+                'user_id' => $userId
             ]
         );
     }
-    public function list(): LengthAwarePaginator
+    public function list(?int $userId): LengthAwarePaginator
     {
-        return $this->model->paginate();
+        return $this->model
+            ->when(!is_null($userId), function ($query) use ($userId) {
+                $query->where('user_id', $userId);
+            })
+            ->paginate();
     }
 
     public function update(int $id, string $description): void

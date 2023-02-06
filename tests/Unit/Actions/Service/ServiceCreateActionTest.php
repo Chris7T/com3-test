@@ -3,7 +3,7 @@
 namespace Tests\Unit\Actions\Service;
 
 use App\Actions\Service\ServiceCreateAction;
-use App\Actions\User\UserCheckAdminPermissionAction;
+use App\Actions\User\UserCheckIsAdminPermissionAction;
 use App\Models\Service;
 use App\Repositories\Service\ServiceRepositoryInterface;
 use Illuminate\Support\Facades\Cache;
@@ -15,7 +15,7 @@ class ServiceCreateActionTest extends TestCase
     {
         parent::setUp();
         $this->serviceRepositoryStub = $this->createMock(ServiceRepositoryInterface::class);
-        $this->userCheckAdminPermissionActionStub = $this->createMock(UserCheckAdminPermissionAction::class);
+        $this->userCheckAdminPermissionActionStub = $this->createMock(UserCheckIsAdminPermissionAction::class);
     }
 
     public function test_expected_void_when_data_exists()

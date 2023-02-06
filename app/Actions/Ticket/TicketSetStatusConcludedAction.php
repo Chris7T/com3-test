@@ -2,7 +2,7 @@
 
 namespace App\Actions\Ticket;
 
-use App\Actions\User\UserCheckAdminPermissionAction;
+use App\Actions\User\UserCheckIsAdminPermissionAction;
 use App\Repositories\Ticket\TicketRepositoryInterface;
 
 class TicketSetStatusConcludedAction
@@ -10,7 +10,7 @@ class TicketSetStatusConcludedAction
     public function __construct(
         private readonly TicketRepositoryInterface $ticketRepository,
         private readonly TicketGetAction $ticketGetAction,
-        private readonly UserCheckAdminPermissionAction $userCheckAdminPermissionAction
+        private readonly UserCheckIsAdminPermissionAction $userCheckAdminPermissionAction
     ) {
     }
 

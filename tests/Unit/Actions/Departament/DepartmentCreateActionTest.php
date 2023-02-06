@@ -3,7 +3,7 @@
 namespace Tests\Unit\Actions\Department;
 
 use App\Actions\Department\DepartmentCreateAction;
-use App\Actions\User\UserCheckAdminPermissionAction;
+use App\Actions\User\UserCheckIsAdminPermissionAction;
 use App\Models\Department;
 use App\Repositories\Department\DepartmentRepositoryInterface;
 use Illuminate\Support\Facades\Cache;
@@ -15,7 +15,7 @@ class DepartmentCreateActionTest extends TestCase
     {
         parent::setUp();
         $this->departmentRepositoryStub = $this->createMock(DepartmentRepositoryInterface::class);
-        $this->userCheckAdminPermissionActionStub = $this->createMock(UserCheckAdminPermissionAction::class);
+        $this->userCheckAdminPermissionActionStub = $this->createMock(UserCheckIsAdminPermissionAction::class);
     }
 
     public function test_expected_void_when_data_exists()

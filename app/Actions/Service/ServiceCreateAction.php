@@ -2,7 +2,7 @@
 
 namespace App\Actions\Service;
 
-use App\Actions\User\UserCheckAdminPermissionAction;
+use App\Actions\User\UserCheckIsAdminPermissionAction;
 use App\Models\Service;
 use App\Repositories\Service\ServiceRepositoryInterface;
 use Illuminate\Support\Facades\Cache;
@@ -11,7 +11,7 @@ class ServiceCreateAction
 {
     public function __construct(
         private readonly ServiceRepositoryInterface $serviceRepository,
-        private readonly UserCheckAdminPermissionAction $userCheckAdminPermissionAction
+        private readonly UserCheckIsAdminPermissionAction $userCheckAdminPermissionAction
     ) {
     }
 

@@ -4,7 +4,7 @@ namespace Tests\Unit\Actions\Department;
 
 use App\Actions\Department\DepartmentDeleteAction;
 use App\Actions\Department\DepartmentGetAction;
-use App\Actions\User\UserCheckAdminPermissionAction;
+use App\Actions\User\UserCheckIsAdminPermissionAction;
 use App\Repositories\Department\DepartmentRepositoryInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Tests\TestCase;
@@ -16,7 +16,7 @@ class DepartmentDeleteActionTest extends TestCase
         parent::setUp();
         $this->departmentRepositoryStub = $this->createMock(DepartmentRepositoryInterface::class);
         $this->departmentGetActionStub = $this->createMock(DepartmentGetAction::class);
-        $this->userCheckAdminPermissionActionStub = $this->createMock(UserCheckAdminPermissionAction::class);
+        $this->userCheckAdminPermissionActionStub = $this->createMock(UserCheckIsAdminPermissionAction::class);
     }
 
     public function test_expected_not_found_exception_when_data_does_not_exists()

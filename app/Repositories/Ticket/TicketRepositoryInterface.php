@@ -9,8 +9,8 @@ use Illuminate\Support\Collection;
 interface TicketRepositoryInterface
 {
     public function getTicketById(int $id): ?Ticket;
-    public function createTicket(string $description): Ticket;
-    public function list(): LengthAwarePaginator;
+    public function createTicket(string $description, int $userId): Ticket;
+    public function list(?int $userId): LengthAwarePaginator;
     public function update(int $id, string $description): void;
     public function deleteTicketById(int $id): void;
     public function linkService(int $id, array $serviceIds): void;

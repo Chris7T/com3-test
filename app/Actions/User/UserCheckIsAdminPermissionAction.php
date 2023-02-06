@@ -5,7 +5,7 @@ namespace App\Actions\User;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
-class UserCheckAdminPermissionAction
+class UserCheckIsAdminPermissionAction
 {
     public function execute(): void
     {

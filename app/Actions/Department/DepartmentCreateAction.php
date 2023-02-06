@@ -2,7 +2,7 @@
 
 namespace App\Actions\Department;
 
-use App\Actions\User\UserCheckAdminPermissionAction;
+use App\Actions\User\UserCheckIsAdminPermissionAction;
 use App\Models\Department;
 use App\Repositories\Department\DepartmentRepositoryInterface;
 use Illuminate\Support\Facades\Cache;
@@ -11,7 +11,7 @@ class DepartmentCreateAction
 {
     public function __construct(
         private readonly DepartmentRepositoryInterface $departmentRepository,
-        private readonly UserCheckAdminPermissionAction $userCheckAdminPermissionAction
+        private readonly UserCheckIsAdminPermissionAction $userCheckAdminPermissionAction
     ) {
     }
 

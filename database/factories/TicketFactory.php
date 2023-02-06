@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -13,6 +14,7 @@ class TicketFactory extends Factory
     {
         return [
             'description' => fake()->text(100),
+            'user_id' => User::factory(),
         ];
     }
 }

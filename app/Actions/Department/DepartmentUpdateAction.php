@@ -2,7 +2,7 @@
 
 namespace App\Actions\Department;
 
-use App\Actions\User\UserCheckAdminPermissionAction;
+use App\Actions\User\UserCheckIsAdminPermissionAction;
 use App\Repositories\Department\DepartmentRepositoryInterface;
 
 class DepartmentUpdateAction
@@ -10,7 +10,7 @@ class DepartmentUpdateAction
     public function __construct(
         private readonly DepartmentRepositoryInterface $departmentRepository,
         private readonly DepartmentGetAction $departmentGetAction,
-        private readonly UserCheckAdminPermissionAction $userCheckAdminPermissionAction
+        private readonly UserCheckIsAdminPermissionAction $userCheckAdminPermissionAction
     ) {
     }
 
