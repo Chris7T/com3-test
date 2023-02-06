@@ -24,7 +24,8 @@ class TicketRepository implements TicketRepositoryInterface
         return $this->model->create(
             [
                 'description' => $description,
-                'user_id' => $userId
+                'user_id' => $userId,
+                'ticket_status' => TicketStatusEnum::PENDING->value
             ]
         );
     }
@@ -95,8 +96,8 @@ class TicketRepository implements TicketRepositoryInterface
         $this->model->find($id)->update(['ticket_status' => TicketStatusEnum::CONCLUDED->value]);
     }
 
-    public function setStatusPending(int $id): void
+    public function setStatusProgress(int $id): void
     {
-        $this->model->find($id)->update(['ticket_status' => TicketStatusEnum::PENDING->value]);
+        $this->model->find($id)->update(['ticket_status' => TicketStatusEnum::PROGRESS->value]);
     }
 }

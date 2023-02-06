@@ -4,7 +4,7 @@ namespace App\Actions\Ticket;
 
 use App\Repositories\Ticket\TicketRepositoryInterface;
 
-class TicketSetStatusPendingAction
+class TicketSetStatusProgressAction
 {
     public function __construct(
         private readonly TicketRepositoryInterface $ticketRepository,

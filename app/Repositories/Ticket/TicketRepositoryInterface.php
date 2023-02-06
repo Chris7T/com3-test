@@ -20,5 +20,5 @@ interface TicketRepositoryInterface
     public function getlinkedDepartment(int $id): Collection;
     public function getlinkedService(int $id): Collection;
     public function setStatusConcluded(int $id): void;
-    public function setStatusPending(int $id): void;
+    public function setStatusProgress(int $id): void;
 }

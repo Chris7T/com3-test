@@ -13,6 +13,7 @@ class TicketResource extends JsonResource
     public function toArray($request)
     {
         return [
+            'id' => Arr::get($this, 'id'),
             'description' => Arr::get($this, 'description'),
             'ticket_status' => TicketStatusEnum::tryFrom(Arr::get($this, 'ticket_status'))?->name(),
             'services' => ServiceResource::collection(Arr::get($this, 'services')),
