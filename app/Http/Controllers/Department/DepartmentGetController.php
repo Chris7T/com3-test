@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response as HttpFoundationResponse;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class DepartmentGetController extends Controller
@@ -24,6 +25,9 @@ class DepartmentGetController extends Controller
     {
         try {
             return DepartmentResource::make($this->departmentCreateAction->execute($id));
+        } catch (AccessDeniedHttpException $ex) {
+
+            return Response::json(['message' => $ex->getMessage()], $ex->getStatusCode());
         } catch (NotFoundHttpException $ex) {
 
             return Response::json(['message' => $ex->getMessage()], $ex->getStatusCode());

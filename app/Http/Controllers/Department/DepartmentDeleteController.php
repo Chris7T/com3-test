@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response as HttpFoundationResponse;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class DepartmentDeleteController extends Controller
@@ -25,6 +26,9 @@ class DepartmentDeleteController extends Controller
             $this->departmentDeleteAction->execute($id);
 
             return Response::json(status: HttpFoundationResponse::HTTP_NO_CONTENT);
+        } catch (AccessDeniedHttpException $ex) {
+
+            return Response::json(['message' => $ex->getMessage()], $ex->getStatusCode());
         } catch (NotFoundHttpException $ex) {
 
             return Response::json(['message' => $ex->getMessage()], $ex->getStatusCode());

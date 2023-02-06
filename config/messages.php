@@ -2,6 +2,6 @@
 
 return [
     'error' => [
-        'server' => 'Something wrong is not right. Please contact support!',
+        'server' => 'Something is wrong. Please contact support!',
     ],
 ];

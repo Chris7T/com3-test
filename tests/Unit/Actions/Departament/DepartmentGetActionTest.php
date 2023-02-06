@@ -3,6 +3,7 @@
 namespace Tests\Unit\Actions\Department;
 
 use App\Actions\Department\DepartmentGetAction;
+use App\Actions\User\UserCheckAdminPermissionAction;
 use App\Models\Department;
 use App\Repositories\Department\DepartmentRepositoryInterface;
 use Illuminate\Support\Facades\Cache;
@@ -15,6 +16,7 @@ class DepartmentGetActionTest extends TestCase
     {
         parent::setUp();
         $this->departmentRepositoryStub = $this->createMock(DepartmentRepositoryInterface::class);
+        $this->userCheckAdminPermissionActionStub = $this->createMock(UserCheckAdminPermissionAction::class);
     }
 
     public function test_expected_not_found_exception_when_repository_return_null()
@@ -22,13 +24,20 @@ class DepartmentGetActionTest extends TestCase
         $this->expectException(NotFoundHttpException::class);
         $this->expectExceptionMessage('Department not found');
         $id = 1;
+
         $this->departmentRepositoryStub
             ->expects($this->once())
             ->method('getDepartmentById')
             ->with($id)
             ->willReturn(null);
+
+        $this->userCheckAdminPermissionActionStub
+            ->expects($this->once())
+            ->method('execute');
+
         $department = new DepartmentGetAction(
             departmentRepository: $this->departmentRepositoryStub,
+            userCheckAdminPermissionAction: $this->userCheckAdminPermissionActionStub
         );
 
         $department->execute($id);
@@ -44,8 +53,14 @@ class DepartmentGetActionTest extends TestCase
             ->once()
             ->with("department-{$id}", config('cache.one_day'), \Closure::class)
             ->andReturn(null);
+
+        $this->userCheckAdminPermissionActionStub
+            ->expects($this->once())
+            ->method('execute');
+
         $department = new DepartmentGetAction(
             departmentRepository: $this->departmentRepositoryStub,
+            userCheckAdminPermissionAction: $this->userCheckAdminPermissionActionStub
         );
 
         $department->execute($id);
@@ -60,8 +75,14 @@ class DepartmentGetActionTest extends TestCase
             ->once()
             ->with("department-{$id}", config('cache.one_day'), \Closure::class)
             ->andReturn($departmentExpexted);
+
+        $this->userCheckAdminPermissionActionStub
+            ->expects($this->once())
+            ->method('execute');
+
         $department = new DepartmentGetAction(
             departmentRepository: $this->departmentRepositoryStub,
+            userCheckAdminPermissionAction: $this->userCheckAdminPermissionActionStub
         );
 
         $return = $department->execute($id);
@@ -80,8 +101,13 @@ class DepartmentGetActionTest extends TestCase
             ->with($id)
             ->willReturn($departmentExpexted);
 
+        $this->userCheckAdminPermissionActionStub
+            ->expects($this->once())
+            ->method('execute');
+
         $department = new DepartmentGetAction(
             departmentRepository: $this->departmentRepositoryStub,
+            userCheckAdminPermissionAction: $this->userCheckAdminPermissionActionStub
         );
 
         $return = $department->execute($id);

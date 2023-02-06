@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Cache;
 class ServiceListAction
 {
     public function __construct(
-        private readonly ServiceRepositoryInterface $serviceRepository
+        private readonly ServiceRepositoryInterface $serviceRepository,
     ) {
     }
 

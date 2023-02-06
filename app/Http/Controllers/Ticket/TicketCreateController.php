@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response as HttpFoundationResponse;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 class TicketCreateController extends Controller
 {
@@ -28,6 +29,8 @@ class TicketCreateController extends Controller
             $request->input('departments'),
         ));
         try {
+        } catch (AccessDeniedHttpException $ex) {
+            return Response::json(['message' => $ex->getMessage()], $ex->getStatusCode());
         } catch (Exception $ex) {
             Log::critical('Controller : ' . self::class, ['exception' => $ex->getMessage()]);
 

@@ -4,9 +4,9 @@ namespace Tests\Unit\Actions\Service;
 
 use App\Actions\Service\ServiceGetAction;
 use App\Actions\Service\ServiceUpdateAction;
+use App\Actions\User\UserCheckAdminPermissionAction;
 use App\Models\Service;
 use App\Repositories\Service\ServiceRepositoryInterface;
-use Illuminate\Support\Facades\Cache;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Tests\TestCase;
 
@@ -17,6 +17,7 @@ class ServiceUpdateActionTest extends TestCase
         parent::setUp();
         $this->serviceRepositoryStub = $this->createMock(ServiceRepositoryInterface::class);
         $this->serviceGetActionStub = $this->createMock(ServiceGetAction::class);
+        $this->userCheckAdminPermissionActionStub = $this->createMock(UserCheckAdminPermissionAction::class);
     }
 
     public function test_expected_not_found_http_exception_when_data_does_not_exists()
@@ -36,9 +37,14 @@ class ServiceUpdateActionTest extends TestCase
             ->with($id)
             ->willThrowException(new NotFoundHttpException('Service not found'));
 
+        $this->userCheckAdminPermissionActionStub
+            ->expects($this->once())
+            ->method('execute');
+
         $service = new ServiceUpdateAction(
             serviceRepository: $this->serviceRepositoryStub,
-            serviceGetAction: $this->serviceGetActionStub
+            serviceGetAction: $this->serviceGetActionStub,
+            userCheckAdminPermissionAction: $this->userCheckAdminPermissionActionStub
         );
 
         $service->execute($id, $description);
@@ -62,9 +68,14 @@ class ServiceUpdateActionTest extends TestCase
             ->method('update')
             ->with($id, $description);
 
+        $this->userCheckAdminPermissionActionStub
+            ->expects($this->once())
+            ->method('execute');
+
         $service = new ServiceUpdateAction(
             serviceRepository: $this->serviceRepositoryStub,
-            serviceGetAction: $this->serviceGetActionStub
+            serviceGetAction: $this->serviceGetActionStub,
+            userCheckAdminPermissionAction: $this->userCheckAdminPermissionActionStub
         );
 
         $service->execute($id, $description);

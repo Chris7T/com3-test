@@ -5,7 +5,6 @@ namespace Tests\Feature\User;
 use App\Models\Ticket;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Str;
 use Symfony\Component\HttpFoundation\Response;
 use Tests\TestCase;
 
@@ -16,7 +15,6 @@ class TicketSetConcludedTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-        $this->user = User::factory()->create();
         $this->ticket = Ticket::factory()->create();
     }
 
@@ -27,17 +25,23 @@ class TicketSetConcludedTest extends TestCase
 
     public function test_expected_unauthenticaded()
     {
-        $request = [
-            'description' => Str::random(50),
-        ];
         $response = $this->putJson(route(self::ROUTE, $this->ticket->getKey()));
 
         $response->assertStatus(Response::HTTP_UNAUTHORIZED);
     }
 
+    public function test_expected_acess_denied()
+    {
+        $userNoAdmin = User::factory()->create(['is_admin' => false]);
+        $response = $this->actingAs($userNoAdmin)->putJson(route(self::ROUTE, $this->ticket->getKey()));
+
+        $response->assertStatus(Response::HTTP_FORBIDDEN);
+    }
+
     public function test_expected_http_ok_when_sucess()
     {
-        $response = $this->actingAs($this->user)->putJson(route(self::ROUTE, $this->ticket->getKey()));
+        $userAdmin = User::factory()->create();
+        $response = $this->actingAs($userAdmin)->putJson(route(self::ROUTE, $this->ticket->getKey()));
 
         $response->assertStatus(Response::HTTP_NO_CONTENT);
     }
