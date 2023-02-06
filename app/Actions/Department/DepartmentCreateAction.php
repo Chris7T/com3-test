@@ -16,7 +16,7 @@ class DepartmentCreateAction
     public function execute(string $description): Department
     {
         $department = $this->departmentRepository->createDepartment($description);
-        Cache::put("departament-{$department->getKey()}", $department->toArray(), config('cache.time.one_month'));
+        Cache::put("department-{$department->getKey()}", $department->toArray(), config('cache.time.one_month'));
 
         return $department;
     }

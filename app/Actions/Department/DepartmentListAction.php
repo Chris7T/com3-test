@@ -16,7 +16,7 @@ class DepartmentListAction
     public function execute(): LengthAwarePaginator
     {
         return Cache::remember(
-            'departament-list',
+            'department-list',
             config('cache.one_day'),
             fn () => $this->departmentRepository->list()
         );

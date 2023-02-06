@@ -17,7 +17,7 @@ class DepartmentGetAction
     public function execute(int $id): Department
     {
         $department = Cache::remember(
-            "departament-{$id}",
+            "department-{$id}",
             config('cache.one_day'),
             fn () => $this->departmentRepository->getDepartmentById($id)
         );
