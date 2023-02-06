@@ -16,7 +16,7 @@ class ServiceCreateAction
     public function execute(string $description): Service
     {
         $service = $this->serviceRepository->createService($description);
-        Cache::put("service-{$service->getKey()}", $service->toArray(), config('cache.time.one_month'));
+        Cache::put("service-{$service->getKey()}", $service, config('cache.time.one_month'));
 
         return $service;
     }

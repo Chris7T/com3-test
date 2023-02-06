@@ -31,7 +31,7 @@ class ServiceCreateActionTest extends TestCase
 
         Cache::shouldReceive('put')
             ->once()
-            ->with("service-{$id}", $serviceExpected->toArray(), config('cache.time.one_month'));
+            ->with("service-{$id}", $serviceExpected, config('cache.time.one_month'));
         $service = new ServiceCreateAction(
             serviceRepository: $this->serviceRepositoryStub,
         );

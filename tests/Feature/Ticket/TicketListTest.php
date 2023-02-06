@@ -7,9 +7,9 @@ use Illuminate\Support\Facades\Route;
 use Symfony\Component\HttpFoundation\Response;
 use Tests\TestCase;
 
-class ServiceListTest extends TestCase
+class TicketListTest extends TestCase
 {
-    private const ROUTE = 'service.list';
+    private const ROUTE = 'ticket.list';
 
     public function setUp(): void
     {

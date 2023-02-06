@@ -31,7 +31,7 @@ class DepartmentCreateActionTest extends TestCase
 
         Cache::shouldReceive('put')
             ->once()
-            ->with("department-{$id}", $departmentExpected->toArray(), config('cache.time.one_month'));
+            ->with("department-{$id}", $departmentExpected, config('cache.time.one_month'));
         $department = new DepartmentCreateAction(
             departmentRepository: $this->departmentRepositoryStub,
         );

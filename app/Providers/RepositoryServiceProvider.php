@@ -6,6 +6,8 @@ use App\Repositories\Department\DepartmentRepository;
 use App\Repositories\Department\DepartmentRepositoryInterface;
 use App\Repositories\Service\ServiceRepository;
 use App\Repositories\Service\ServiceRepositoryInterface;
+use App\Repositories\Ticket\TicketRepository;
+use App\Repositories\Ticket\TicketRepositoryInterface;
 use App\Repositories\User\UserRepository;
 use App\Repositories\User\UserRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
@@ -22,6 +24,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(UserRepositoryInterface::class, UserRepository::class);
         $this->app->bind(DepartmentRepositoryInterface::class, DepartmentRepository::class);
         $this->app->bind(ServiceRepositoryInterface::class, ServiceRepository::class);
+        $this->app->bind(TicketRepositoryInterface::class, TicketRepository::class);
     }
 
     /**

@@ -3,7 +3,6 @@
 namespace App\Actions\Department;
 
 use App\Repositories\Department\DepartmentRepositoryInterface;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class DepartmentUpdateAction
 {

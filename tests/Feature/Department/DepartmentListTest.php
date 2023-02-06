@@ -23,7 +23,7 @@ class DepartmentListTest extends TestCase
         $this->assertTrue(Route::has(self::ROUTE));
     }
 
-    public function test_expected_http_created_when_sucess()
+    public function test_expected_http_ok_when_sucess()
     {
         $response = $this->actingAs($this->user)->getJson(route(self::ROUTE));
 
