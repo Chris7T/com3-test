@@ -14,7 +14,7 @@ class UserRegisterAction
     ) {
     }
 
-    public function execute(array $userData)
+    public function execute(array $userData): array
     {
         $user = $this->userRepository->createUser(
             name: Arr::get($userData, 'name'),

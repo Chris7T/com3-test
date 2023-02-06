@@ -1,29 +1,30 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\User;
 
-use App\Actions\User\UserRegisterAction;
-use App\Http\Requests\RegisterRequest;
+use App\Actions\User\UserLoginAction;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\User\LoginRequest;
 use App\Http\Resources\User\LoginResource;
 use Exception;
 use Illuminate\Http\Resources\Json\JsonResource;
-use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Log;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Response as HttpFoundationResponse;
+use Illuminate\Support\Facades\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Symfony\Component\HttpFoundation\Response as HttpFoundationResponse;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
-class RegisterController extends Controller
+class LoginController extends Controller
 {
     public function __construct(
-        private readonly UserRegisterAction $userRegisterAction
+        private readonly UserLoginAction $userLoginAction
     ) {
     }
 
-    public function register(RegisterRequest $request): JsonResource|JsonResponse
+    public function login(LoginRequest $request): JsonResource|JsonResponse
     {
-        return LoginResource::make($this->userRegisterAction->execute($request->validated()));
         try {
+            return LoginResource::make($this->userLoginAction->execute($request->validated()));
         } catch (AccessDeniedHttpException $ex) {
             return Response::json(['message' => $ex->getMessage()], $ex->getStatusCode());
         } catch (Exception $ex) {

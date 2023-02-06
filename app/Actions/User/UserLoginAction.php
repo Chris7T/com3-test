@@ -14,7 +14,7 @@ class UserLoginAction
     ) {
     }
 
-    public function execute(array $userData)
+    public function execute(array $userData): array
     {
         $email = Arr::get($userData, 'email');
         $password = Arr::get($userData, 'password');

@@ -1,30 +1,31 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Department;
 
-use App\Actions\User\UserLoginAction;
-use App\Http\Requests\LoginRequest;
-use App\Http\Resources\User\LoginResource;
+use App\Actions\Department\DepartmentGetAction;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\Department\DepartmentResource;
 use Exception;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Log;
-use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
-use Symfony\Component\HttpFoundation\Response as HttpFoundationResponse;
 use Illuminate\Support\Facades\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response as HttpFoundationResponse;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class LoginController extends Controller
+class DepartmentGetController extends Controller
 {
     public function __construct(
-        private readonly UserLoginAction $userLoginAction
+        private readonly DepartmentGetAction $departmentCreateAction
     ) {
     }
 
-    public function login(LoginRequest $request): JsonResource|JsonResponse
+    public function __invoke(int $id): JsonResource|JsonResponse
     {
         try {
-            return LoginResource::make($this->userLoginAction->execute($request->validated()));
-        } catch (AccessDeniedHttpException $ex) {
+            return DepartmentResource::make($this->departmentCreateAction->execute($id));
+        } catch (NotFoundHttpException $ex) {
+
             return Response::json(['message' => $ex->getMessage()], $ex->getStatusCode());
         } catch (Exception $ex) {
             Log::critical('Controller : ' . self::class, ['exception' => $ex->getMessage()]);

@@ -1,9 +1,9 @@
 <?php
 
-use App\Http\Controllers\LoginController;
-use App\Http\Controllers\LogoutController;
-use App\Http\Controllers\RegisterController;
-use App\Http\Controllers\VerificationController;
+use App\Http\Controllers\User\LoginController;
+use App\Http\Controllers\User\LogoutController;
+use App\Http\Controllers\User\RegisterController;
+use App\Http\Controllers\User\VerificationController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', fn () => view('welcome'))->name('welcome');
